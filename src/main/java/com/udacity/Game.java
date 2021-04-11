@@ -149,9 +149,127 @@ public class Game {
      * @return String indicating the outcome of the game: "X wins" or "O wins" or "Tie" or "None"
      */
     public String checkGameWinner(char [][]grid){
-        String result = "None";
-        //Student code goes here ...
-        return result;
+        String []results = {"X wins" , "O wins" , "Tie" , "None"};
+
+        // cheak for player X
+        boolean xPlayerResult = false ;
+        boolean rowResultForX = false;
+        boolean colResultForX= false;
+        boolean mainDiagonalResultForX = true;
+        boolean minorDiagonalResultForx = true;
+        boolean emptyFind = false;
+        //row check
+        for(int i = 0; i < 3 ;i++){
+            boolean rowCheck = true;
+            boolean colCheck = true;
+            for(int j = 0 ; j < 3 ; j++){
+                //row check
+                if(grid[i][j] == 'x'){
+                    rowCheck = rowCheck & true;
+                }else{
+                    rowCheck = rowCheck & false;
+                }
+                // coloum check
+                if(grid[j][i] == 'x'){
+                    colCheck = colCheck & true;
+                }else{
+                    colCheck = colCheck & false;
+                }
+                // diagonal check
+                if(i == j){
+                    // main diagonal check
+                    if(grid[i][j] == 'x'){
+                        mainDiagonalResultForX = mainDiagonalResultForX & true;
+                    }else{
+                        mainDiagonalResultForX = mainDiagonalResultForX & false;
+                    }
+                    // minor diagonal check
+                    if(grid[i][3 - i - 1] == 'x'){
+                        minorDiagonalResultForx = minorDiagonalResultForx & true;
+                    }else{
+                        minorDiagonalResultForx = minorDiagonalResultForx & false;
+                    }
+                }
+                if(grid[i][j] == '-'){
+                    emptyFind = true;
+                }
+            }
+            if(rowCheck){
+                rowResultForX = true;
+                break;
+            }
+            if(colCheck){
+                colResultForX = true;
+                break;
+            }
+        }
+        if(mainDiagonalResultForX || minorDiagonalResultForx || rowResultForX || colResultForX){
+            xPlayerResult = true;
+        }
+
+        //Check for O
+        boolean oPlayerResult = false ;
+        boolean rowResultForO = false;
+        boolean colResultForO= false;
+        boolean mainDiagonalResultForO = true;
+        boolean minorDiagonalResultForO = true;
+
+        for(int i = 0; i < 3 ;i++){
+            boolean rowCheck = true;
+            boolean colCheck = true;
+            for(int j = 0 ; j < 3 ; j++){
+                //row check
+                if(grid[i][j] == 'o'){
+                    rowCheck = rowCheck & true;
+                }else{
+                    rowCheck = rowCheck & false;
+                }
+                // coloum check
+                if(grid[j][i] == 'o'){
+                    colCheck = colCheck & true;
+                }else{
+                    colCheck = colCheck & false;
+                }
+                // diagonal check
+                if(i == j){
+                    // main diagonal check
+                    if(grid[i][j] == 'o'){
+                        mainDiagonalResultForO = mainDiagonalResultForO & true;
+                    }else{
+                        mainDiagonalResultForO = mainDiagonalResultForO & false;
+                    }
+                    // minor diagonal check
+                    if(grid[i][3 - i - 1] == 'o'){
+                        minorDiagonalResultForx = minorDiagonalResultForx & true;
+                    }else{
+                        minorDiagonalResultForO = minorDiagonalResultForO & false;
+                    }
+                }
+            }
+            if(rowCheck){
+                rowResultForO = true;
+                break;
+            }
+            if(colCheck){
+                colResultForO = true;
+                break;
+            }
+        }
+        if(mainDiagonalResultForO || minorDiagonalResultForO || rowResultForO || colResultForO){
+            oPlayerResult  = true;
+        }
+
+        // return result
+        if(!xPlayerResult && !oPlayerResult && emptyFind){
+            return  results[3];
+        }
+        else if(!xPlayerResult && !oPlayerResult) {
+            return results[2];
+        }else if(xPlayerResult){
+            return  results[0];
+        }else{
+            return  results[1];
+        }
     }
 
     /**
